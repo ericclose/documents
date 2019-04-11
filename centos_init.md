@@ -31,6 +31,13 @@ yum install google-chrome-stable
 ## panel
 `/usr/share/gnome-shell/modes/classic.json`
 
+# 安装 AnyDesk
+
+```bash
+wget https://download.anydesk.com/linux/rhel7/anydesk-4.0.1-1.el7.x86_64.rpm
+sudo yum localinstall -y anydesk-4.0.1-1.el7.x86_64.rpm
+```
+
 # 安装TeamViewer
 
 ```bash
@@ -149,7 +156,7 @@ Click the "Computer" link on the left navigation panel and go to "/usr/shared/ap
 
 Now here, I first tried dragging the Terminal icon over to the desktop, but got an error due to permissions (Error setting owner: Operation not permitted), (Any input on this would be appreciated).
 
-Instead do "Right-click Icon->Context Menu->Copy To". This will bring up another browser window titled "Select Destination". 
+Instead do "Right-click Icon->Context Menu->Copy To". This will bring up another browser window titled "Select Destination".
 
 Select (left-click) the "Desktop" folder in the left navigation panel, and the click the "Select" button in the bottom right.
 
