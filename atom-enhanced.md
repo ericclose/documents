@@ -25,4 +25,4 @@
 * `Ctrl + M`: markdown 预览（需要先安装markdown-preview-enhanced）
 
 # 最终效果图
-[效果图](https://github.com/ericclose/images/raw/master/atom-enhanced.png)
+![效果图](https://github.com/ericclose/images/raw/master/atom-enhanced.png)
