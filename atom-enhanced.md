@@ -18,9 +18,11 @@
 > material design 语法高亮
 
 ## 常用快捷键
-`Ctrl + ,`: 调开设置面板
-`Ctrl + \`: 隐藏/显示项目侧边栏
-`Ctrl + M`: markdown 预览（需要先安装markdown-preview-enhanced）
+* `Ctrl + ,`: 调开设置面板
+
+* `Ctrl + \`: 隐藏/显示项目侧边栏
+
+* `Ctrl + M`: markdown 预览（需要先安装markdown-preview-enhanced）
 
 # 最终效果图
 [效果图](https://github.com/ericclose/images/raw/master/atom-enhanced.png)
