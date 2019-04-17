@@ -10,8 +10,8 @@
 * [title-bar-replacer](https://atom.io/packages/title-bar-replacer)
 > 去除 Windows 原生窗口栏，并进行美化
 
-* ## themes
-[atom-material-ui](https://atom.io/themes/atom-material-ui)
+## themes
+* [atom-material-ui](https://atom.io/themes/atom-material-ui)
 > material design 用户界面
 
 * [atom-material-syntax](https://atom.io/themes/atom-material-syntax)
