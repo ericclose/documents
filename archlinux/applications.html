@@ -41,7 +41,12 @@
 <li><a href="#wi-fi-%e7%83%ad%e7%82%b9">Wi-Fi 热点</a></li>
 <li><a href="#%e8%a7%86%e9%a2%91%e6%92%ad%e6%94%be%e5%99%a8">视频播放器</a></li>
 <li><a href="#%e9%9f%b3%e4%b9%90%e6%92%ad%e6%94%be%e5%99%a8">音乐播放器</a></li>
-<li><a href="#%e8%a7%a3%e5%8e%8b%e7%bc%a9%e8%bd%af%e4%bb%b6%e5%8f%8a%e5%85%b6%e4%be%9d%e8%b5%96">解压缩软件及其依赖</a></li>
+<li><a href="#makepkg-%e4%bc%98%e5%8c%96">makepkg 优化</a>
+<ul>
+<li><a href="#%e5%b9%b6%e8%a1%8c%e7%bc%96%e8%af%91">并行编译</a></li>
+<li><a href="#%e4%bd%bf%e7%94%a8%e5%86%85%e5%ad%98%e6%96%87%e4%bb%b6%e7%b3%bb%e7%bb%9f%e8%bf%9b%e8%a1%8c%e7%bc%96%e8%af%91">使用内存文件系统进行编译</a></li>
+</ul>
+</li>
 <li><a href="#%e4%b8%8b%e8%bd%bd%e5%99%a8">下载器</a></li>
 <li><a href="#%e4%bb%a3%e7%90%86%e7%9b%b8%e5%85%b3">代理相关</a>
 <ul>
@@ -96,15 +101,8 @@
 <li><a href="#electronic-wechat">electronic-wechat</a></li>
 <li><a href="#qq">qq</a></li>
 <li><a href="#pacman-key">pacman-key</a></li>
-<li><a href="#makepkg-%e4%bc%98%e5%8c%96">makepkg 优化</a>
-<ul>
-<li><a href="#%e5%b9%b6%e8%a1%8c%e7%bc%96%e8%af%91">并行编译</a></li>
-<li><a href="#%e4%bd%bf%e7%94%a8%e5%86%85%e5%ad%98%e6%96%87%e4%bb%b6%e7%b3%bb%e7%bb%9f%e8%bf%9b%e8%a1%8c%e7%bc%96%e8%af%91">使用内存文件系统进行编译</a></li>
-</ul>
-</li>
 <li><a href="#office-%e5%a5%97%e4%bb%b6">Office 套件</a>
 <ul>
-<li><a href="#%e5%ae%89%e8%a3%85-git-%e5%92%8c-base-devel">安装 git 和 base-devel</a></li>
 <li><a href="#%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85-jade-application-kit">编译安装 jade-application-kit</a></li>
 <li><a href="#%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85-ms-office-online">编译安装 ms-office-online</a></li>
 </ul>
@@ -112,6 +110,10 @@
 <li><a href="#rss-%e9%98%85%e8%af%bb%e5%99%a8">RSS 阅读器</a>
 <ul>
 <li><a href="#raven-reader">raven-reader</a></li>
+<li><a href="#winds">Winds</a></li>
+<li><a href="#alduin">alduin</a></li>
+<li><a href="#feedreader">feedreader</a></li>
+<li><a href="#raven-reader-1">raven-reader</a></li>
 </ul>
 </li>
 </ul>
@@ -152,7 +154,9 @@ systemctl reboot
 </div></code></pre>
 <h2 id="%e8%a7%a6%e6%8e%a7%e6%9d%bf">触控板</h2>
 <h3 id="libinput-gestures">libinput-gestures</h3>
-<p>sudo gpasswd -a $USER input</p>
+<pre><code class="language-bash"><div>sudo gpasswd -a <span class="hljs-variable">$USER</span> input
+</div></code></pre>
+<p>注销并重新登录</p>
 <ul>
 <li>AUR: <a href="https://aur.archlinux.org/packages/libinput-gestures/">https://aur.archlinux.org/packages/libinput-gestures/</a></li>
 </ul>
@@ -160,19 +164,20 @@ systemctl reboot
 <span class="hljs-built_in">cd</span> libinput-gestures
 makepkg -si
 
-ibinput-gestures-setup autostart
+libinput-gestures-setup autostart
 libinput-gestures-setup start
 cp /etc/libinput-gestures.conf ~/.config/libinput-gestures.conf
 vim ~/.config/libinput-gestures.conf
 </div></code></pre>
 <p>末尾追加</p>
-<pre><code class="language-plain"><code><div>gesture swipe down 3	xdotool key ctrl+F12    // 三指下滑回到桌面
-gesture swipe up 3	xdotool key ctrl+F10      // 三指上滑查看窗口
-gesture swipe right 4	xdotool key meta+Tab    // 四指右滑切换窗口
-gesture swipe left 4	xdotool key meta+Tab    // 四指左滑切换窗口
+<pre><code class="language-conf"><code><div>gesture swipe down 3	xdotool key ctrl+F12    # 三指下滑回到桌面
+gesture swipe up 3	xdotool key ctrl+F10      # 三指上滑查看窗口
+gesture swipe right 4	xdotool key meta+Tab    # 四指右滑切换窗口
+gesture swipe left 4	xdotool key meta+Tab    # 四指左滑切换窗口
 </div></code></code></pre>
 <pre><code class="language-bash"><div>libinput-gestures-setup restart
 </div></code></pre>
+<p>然后记得在 『System Settings』 -&gt; 『Input Devices』 -&gt; 『Touchpad』 -&gt; 启用 『Tap-to-click』 （轻触点击） 和 『Tap-and-drag』 （轻触2下拖拽），这样子触控板就弄好啦</p>
 <h2 id="%e7%bc%96%e8%be%91%e5%99%a8">编辑器</h2>
 <pre><code class="language-bash"><div>sudo pacman -S code
 sudo pacman -S kate
@@ -203,13 +208,33 @@ sudo pacman -S kate
 </ul>
 <pre><code class="language-bash"><div>[innovation@arch ~]$ sudo pacman -S deepin-music
 </div></code></pre>
-<h2 id="%e8%a7%a3%e5%8e%8b%e7%bc%a9%e8%bd%af%e4%bb%b6%e5%8f%8a%e5%85%b6%e4%be%9d%e8%b5%96">解压缩软件及其依赖</h2>
-<ul>
-<li>ark: 可视化解压缩软件</li>
-<li>其余均为依赖</li>
-</ul>
-<pre><code class="language-bash"><div>sudo pacman -S p7zip unrar zip unzip ark
+<h2 id="makepkg-%e4%bc%98%e5%8c%96">makepkg 优化</h2>
+<h3 id="%e5%b9%b6%e8%a1%8c%e7%bc%96%e8%af%91">并行编译</h3>
+<p>make 编译系统使用 <strong>MAKEFLAGS</strong> 环境变量来指定 make 的额外选项。这个值可以在 <em>/etc/makepkg.conf</em> 中进行设置。</p>
+<p>使用多核处理器的用户可以设定同时运行的任务数。可以用 <strong>nproc</strong> 获得可用处理器的个数，例如 <strong>MAKEFLAGS=&quot;-j$(nproc)&quot;</strong> 如果 $(nproc) 结果是 4， 则使用 -j4. 有些 PKGBUILD 强制使用 -j1，因为某些版本会产生冲突或者软件包并不支持。如果出现软件包因为此原因无法编译，请在 bug 系统中报告。（或者，对于AUR软件包，应报告给软件包维护者）。</p>
+<pre><code class="language-bash"><div>sudo vim /etc/makepkg.conf
 </div></code></pre>
+<p>取消注释并修改 <strong>MAKEFLAGS</strong></p>
+<pre><code class="language-conf"><code><div>MAKEFLAGS=&quot;-j$(nproc)&quot;
+</div></code></code></pre>
+<h3 id="%e4%bd%bf%e7%94%a8%e5%86%85%e5%ad%98%e6%96%87%e4%bb%b6%e7%b3%bb%e7%bb%9f%e8%bf%9b%e8%a1%8c%e7%bc%96%e8%af%91">使用内存文件系统进行编译</h3>
+<p>编译过程需要大量的读写操作，要处理很多小文件。将工作目录移动到 tmpfs 可以减少编译时间。</p>
+<p>使用BUILDDIR变量可以临时将 makepkg 的编译目录设置到 tmpfs：</p>
+<pre><code class="language-bash"><div>$ BUILDDIR=/tmp/makepkg makepkg
+</div></code></pre>
+<p><strong>Warning</strong>:</p>
+<blockquote>
+<p>修改 makepkg.conf 的 BUILDDIR 选项可以永久变更编译目录。Arch 的默认 tmpfs 目录是 /tmp. 此变量可以设置为：<em>BUILDDIR=/tmp/makepkg</em> 。</p>
+</blockquote>
+<p>取消注释 <strong>BUILDDIR</strong></p>
+<p><strong>Note</strong>:</p>
+<blockquote>
+<ul>
+<li>编译大工程可能导致内存不足。</li>
+<li>tmpfs 目录挂载时不能使用 noexec 选项，否则编译命令可能无法执行。</li>
+<li>在 tmpfs 中编译的文件重起后会消失，设置 PKGDEST 选项可以将编译结果保存到其它目录。</li>
+</ul>
+</blockquote>
 <h2 id="%e4%b8%8b%e8%bd%bd%e5%99%a8">下载器</h2>
 <ul>
 <li>motrix-bin</li>
@@ -237,7 +262,8 @@ sudo vim /etc/proxychains.conf
 <pre><code class="language-conf"><code><div>socks5 127.0.0.1 8080
 </div></code></code></pre>
 <h3 id="curl-and-pacman-proxy">curl and pacman proxy</h3>
-<p>export all_proxy=&quot;socks5://127.0.0.1:1080&quot;</p>
+<pre><code class="language-bash"><div><span class="hljs-built_in">export</span> all_proxy=<span class="hljs-string">"socks5://127.0.0.1:1080"</span>
+</div></code></pre>
 <h2 id="jdk">JDK</h2>
 <pre><code class="language-bash"><div>sudo pacman -S jre8-openjdk  jre8-openjdk-headless  jdk8-openjdk
 </div></code></pre>
@@ -283,23 +309,21 @@ makepkg -si
 <p>sudo pacman -S android-udev</p>
 <h3 id="%e6%b3%a8%e6%84%8f">注意</h3>
 <p>软件包会安装到/opt/android-sdk。 这个目录需要 root 权限，所以你需要以 root 用户运行 sdk manager，否则你将无法修改这个目录中的内容。 如果打算以一般用户权限来访问，需要创建 android sdk 用户组（名称任意）：</p>
-<pre><code class="language-bash"><div><span class="hljs-comment"># groupadd sdkusers</span>
+<pre><code class="language-bash"><div>sudo groupadd sdkusers
 
 然后将用户添加到这个组中：
-<span class="hljs-comment"># gpasswd -a &lt;user&gt; sdkusers</span>
+sudo gpasswd -a <span class="hljs-variable">$USER</span> sdkusers
 
 修改目录所属的用户组：
-<span class="hljs-comment"># chown -R :sdkusers /opt/android-sdk/</span>
+sudo chown -R :sdkusers /opt/android-sdk/
 
 修改目录的权限，使得刚加入组中的用户也能在目录中写入：
-<span class="hljs-comment"># chmod -R g+w /opt/android-sdk/</span>
-
-重新登录或者以 &lt;user&gt; 登录终端的用户组变为新建的组：
-$ newgrp sdkusers
+sudo chmod -R g+w /opt/android-sdk/
 </div></code></pre>
-<p>注意: 除了上述 AUR 全局安装的方式，还可以参考上游说明将 SDK 安装到用户 home 目录。你也可以使用AUR中的 android-*-dummy 软件包来解决系统依赖。</p>
+<p>注销并重新登录</p>
 <h2 id="telegram-desktop">Telegram Desktop</h2>
-<p>sudo pacman -S telegram-desktop</p>
+<pre><code class="language-bash"><div>sudo pacman -S telegram-desktop
+</div></code></pre>
 <h2 id="tomcat">Tomcat</h2>
 <pre><code class="language-bash"><div>[innovation@arch ~]$ ls -ald /usr/share/tomcat8
 drwxr-xr-x 3 root root 4096 Dec 14 01:26 /usr/share/tomcat8
@@ -324,8 +348,9 @@ drwxrwxr-x 2 tomcat8 <span class="hljs-built_in">log</span>     4096 Dec 14 01:2
 drwxrwxr-x 2 tomcat8 tomcat8 4096 Jun  4  2019 /var/tmp/tomcat8/temp
 drwxrwxr-x 2 tomcat8 tomcat8 4096 Jun  4  2019 /var/tmp/tomcat8/work
 </div></code></pre>
-<p>sudo pacman -S tomcat8</p>
-<p>路径：
+<pre><code class="language-bash"><div>sudo pacman -S tomcat8
+</div></code></pre>
+<p>Tomcat Home 目录：
 /usr/share/tomcat8</p>
 <pre><code class="language-bash"><div>sudo chown -R :tomcat8 /usr/share/tomcat8/bin
 sudo gpasswd -a <span class="hljs-variable">$USER</span> tomcat8
@@ -383,8 +408,9 @@ I had the same issue as you did with tomcat8, but there's a good chance this sol
 <li>建议使用UTF8MB4，因为它可以完全支持Unicode。</li>
 </ul>
 </blockquote>
-<p>sudo mkdir /etc/mysql
-sudo vim /etc/mysql/my.cnf</p>
+<pre><code class="language-bash"><div>sudo mkdir /etc/mysql
+sudo vim /etc/mysql/my.cnf
+</div></code></pre>
 <p>将以下值附加到位于 <strong>/etc/mysql/my.cnf</strong> 的主配置文件中：</p>
 <pre><code class="language-plain"><code><div>[client]
 default-character-set = utf8mb4
@@ -432,7 +458,8 @@ sudo rm -rf /etc/init.d
 sudo pacman -Rs vmware-systemd-services gtkmm pcsclite
 </div></code></pre>
 <h2 id="diff-%e5%b7%a5%e5%85%b7">diff 工具</h2>
-<p>sudo pacman -S meld</p>
+<pre><code class="language-bash"><div>sudo pacman -S meld
+</div></code></pre>
 <h2 id="staruml">StarUML</h2>
 <ul>
 <li>AUR: <a href="https://aur.archlinux.org/packages/staruml/">https://aur.archlinux.org/packages/staruml/</a></li>
@@ -462,37 +489,7 @@ makepkg -si
 <h2 id="pacman-key">pacman-key</h2>
 <p>Resetting all the keys
 If you want to remove or reset all the keys installed in your system, you can remove <code>/etc/pacman.d/gnupg</code> folder as root and rerun <code>pacman-key --init</code> followed by <code>pacman-key --populate archlinux</code> to re-add the default keys.</p>
-<h2 id="makepkg-%e4%bc%98%e5%8c%96">makepkg 优化</h2>
-<h3 id="%e5%b9%b6%e8%a1%8c%e7%bc%96%e8%af%91">并行编译</h3>
-<p>make 编译系统使用 <strong>MAKEFLAGS</strong> 环境变量来指定 make 的额外选项。这个值可以在 <em>/etc/makepkg.conf</em> 中进行设置。</p>
-<p>使用多核处理器的用户可以设定同时运行的任务数。可以用 <strong>nproc</strong> 获得可用处理器的个数，例如 <strong>MAKEFLAGS=&quot;-j$(nproc)&quot;</strong> 如果 $(nproc) 结果是 4， 则使用 -j4. 有些 PKGBUILD 强制使用 -j1，因为某些版本会产生冲突或者软件包并不支持。如果出现软件包因为此原因无法编译，请在 bug 系统中报告。（或者，对于AUR软件包，应报告给软件包维护者）。</p>
-<pre><code class="language-bash"><div>sudo vim /etc/makepkg.conf
-</div></code></pre>
-<p>取消注释并修改 <strong>MAKEFLAGS</strong></p>
-<pre><code class="language-conf"><code><div>MAKEFLAGS=&quot;-j$(nproc)&quot;
-</div></code></code></pre>
-<h3 id="%e4%bd%bf%e7%94%a8%e5%86%85%e5%ad%98%e6%96%87%e4%bb%b6%e7%b3%bb%e7%bb%9f%e8%bf%9b%e8%a1%8c%e7%bc%96%e8%af%91">使用内存文件系统进行编译</h3>
-<p>编译过程需要大量的读写操作，要处理很多小文件。将工作目录移动到 tmpfs 可以减少编译时间。</p>
-<p>使用BUILDDIR变量可以临时将 makepkg 的编译目录设置到 tmpfs：</p>
-<pre><code class="language-bash"><div>$ BUILDDIR=/tmp/makepkg makepkg
-</div></code></pre>
-<p><strong>Warning</strong>:</p>
-<blockquote>
-<p>修改 makepkg.conf 的 BUILDDIR 选项可以永久变更编译目录。Arch 的默认 tmpfs 目录是 /tmp. 此变量可以设置为：<em>BUILDDIR=/tmp/makepkg</em> 。</p>
-</blockquote>
-<p>取消注释 <strong>BUILDDIR</strong></p>
-<p><strong>Note</strong>:</p>
-<blockquote>
-<ul>
-<li>编译大工程可能导致内存不足。</li>
-<li>tmpfs 目录挂载时不能使用 noexec 选项，否则编译命令可能无法执行。</li>
-<li>在 tmpfs 中编译的文件重起后会消失，设置 PKGDEST 选项可以将编译结果保存到其它目录。</li>
-</ul>
-</blockquote>
 <h2 id="office-%e5%a5%97%e4%bb%b6">Office 套件</h2>
-<h3 id="%e5%ae%89%e8%a3%85-git-%e5%92%8c-base-devel">安装 git 和 base-devel</h3>
-<pre><code class="language-bash"><div>[innovation@arch ~]$ sudo pacman -S git base-devel
-</div></code></pre>
 <h3 id="%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85-jade-application-kit">编译安装 jade-application-kit</h3>
 <pre><code class="language-bash"><div>[innovation@arch ~]$ <span class="hljs-built_in">cd</span> ~/Downloads
 [innovation@arch Downloads]$ git <span class="hljs-built_in">clone</span> https://aur.archlinux.org/jade-application-kit.git
@@ -506,6 +503,7 @@ If you want to remove or reset all the keys installed in your system, you can re
 [innovation@arch Downloads]$ makepkg -si
 </div></code></pre>
 <h2 id="rss-%e9%98%85%e8%af%bb%e5%99%a8">RSS 阅读器</h2>
+<h3 id="raven-reader">raven-reader</h3>
 <ul>
 <li>raven-reader: <a href="https://aur.archlinux.org/packages/raven-reader/">https://aur.archlinux.org/packages/raven-reader/</a></li>
 </ul>
@@ -514,6 +512,7 @@ If you want to remove or reset all the keys installed in your system, you can re
 <li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> 已测试通用包</li>
 </ul>
 <p><img src="https://d2.alternativeto.net/dist/s/reaven-reader_769651_full.png?format=jpg&amp;width=1600&amp;height=1600&amp;mode=min&amp;upscale=false" alt="图片1"></p>
+<h3 id="winds">Winds</h3>
 <ul>
 <li>Winds: <a href="https://snapcraft.io/install/winds/arch">https://snapcraft.io/install/winds/arch</a>
 <ul>
@@ -525,6 +524,7 @@ If you want to remove or reset all the keys installed in your system, you can re
 <li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> 已测试snap版本</li>
 </ul>
 <p><img src="https://res.cloudinary.com/canonical/image/fetch/q_auto,f_auto,w_1170/https://dashboard.snapcraft.io/site_media/appmedia/2018/05/app_store_01.png" alt="图片2"></p>
+<h3 id="alduin">alduin</h3>
 <ul>
 <li>alduin: <a href="https://aur.archlinux.org/packages/alduin/">https://aur.archlinux.org/packages/alduin/</a>
 <ul>
@@ -537,6 +537,7 @@ If you want to remove or reset all the keys installed in your system, you can re
 <li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> 已测试通用包 <strong>失败</strong></li>
 </ul>
 <p><img src="https://camo.githubusercontent.com/2924349c69dbcab6aa261e5eb51ba0d9cbe8b630/68747470733a2f2f692e696d6775722e636f6d2f6569394748444b2e706e67" alt="图片3"></p>
+<h3 id="feedreader">feedreader</h3>
 <ul>
 <li>feedreader: <a href="https://www.archlinux.org/packages/community/x86_64/feedreader/">https://www.archlinux.org/packages/community/x86_64/feedreader/</a>
 <ul>
@@ -549,7 +550,7 @@ If you want to remove or reset all the keys installed in your system, you can re
 <li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> 已测试 flatpak 版本</li>
 </ul>
 <p><img src="https://jangernert.github.io/FeedReader/images/gallery/Screenshot1.png" alt="图片4"></p>
-<h3 id="raven-reader">raven-reader</h3>
+<h3 id="raven-reader-1">raven-reader</h3>
 <pre><code class="language-bash"><div>[innovation@arch ~]$ <span class="hljs-built_in">cd</span> Downloads
 [innovation@arch Downloads]$ git <span class="hljs-built_in">clone</span> https://aur.archlinux.org/raven-reader.git
 [innovation@arch Downloads]$ <span class="hljs-built_in">cd</span> raven-reader

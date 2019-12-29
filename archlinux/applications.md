@@ -13,7 +13,9 @@
   - [Wi-Fi 热点](#wi-fi-%e7%83%ad%e7%82%b9)
   - [视频播放器](#%e8%a7%86%e9%a2%91%e6%92%ad%e6%94%be%e5%99%a8)
   - [音乐播放器](#%e9%9f%b3%e4%b9%90%e6%92%ad%e6%94%be%e5%99%a8)
-  - [解压缩软件及其依赖](#%e8%a7%a3%e5%8e%8b%e7%bc%a9%e8%bd%af%e4%bb%b6%e5%8f%8a%e5%85%b6%e4%be%9d%e8%b5%96)
+  - [makepkg 优化](#makepkg-%e4%bc%98%e5%8c%96)
+    - [并行编译](#%e5%b9%b6%e8%a1%8c%e7%bc%96%e8%af%91)
+    - [使用内存文件系统进行编译](#%e4%bd%bf%e7%94%a8%e5%86%85%e5%ad%98%e6%96%87%e4%bb%b6%e7%b3%bb%e7%bb%9f%e8%bf%9b%e8%a1%8c%e7%bc%96%e8%af%91)
   - [下载器](#%e4%b8%8b%e8%bd%bd%e5%99%a8)
   - [代理相关](#%e4%bb%a3%e7%90%86%e7%9b%b8%e5%85%b3)
     - [privoxy](#privoxy)
@@ -53,15 +55,15 @@
   - [electronic-wechat](#electronic-wechat)
   - [qq](#qq)
   - [pacman-key](#pacman-key)
-  - [makepkg 优化](#makepkg-%e4%bc%98%e5%8c%96)
-    - [并行编译](#%e5%b9%b6%e8%a1%8c%e7%bc%96%e8%af%91)
-    - [使用内存文件系统进行编译](#%e4%bd%bf%e7%94%a8%e5%86%85%e5%ad%98%e6%96%87%e4%bb%b6%e7%b3%bb%e7%bb%9f%e8%bf%9b%e8%a1%8c%e7%bc%96%e8%af%91)
   - [Office 套件](#office-%e5%a5%97%e4%bb%b6)
-    - [安装 git 和 base-devel](#%e5%ae%89%e8%a3%85-git-%e5%92%8c-base-devel)
     - [编译安装 jade-application-kit](#%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85-jade-application-kit)
     - [编译安装 ms-office-online](#%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85-ms-office-online)
   - [RSS 阅读器](#rss-%e9%98%85%e8%af%bb%e5%99%a8)
     - [raven-reader](#raven-reader)
+    - [Winds](#winds)
+    - [alduin](#alduin)
+    - [feedreader](#feedreader)
+    - [raven-reader](#raven-reader-1)
 
 # 推荐应用
 
@@ -124,7 +126,11 @@ sudo pacman -S deepin-screen-recorder
 
 ### libinput-gestures
 
+```bash
 sudo gpasswd -a $USER input
+```
+
+注销并重新登录
 
 * AUR: https://aur.archlinux.org/packages/libinput-gestures/
 
@@ -134,7 +140,7 @@ git clone https://aur.archlinux.org/libinput-gestures.git
 cd libinput-gestures
 makepkg -si
 
-ibinput-gestures-setup autostart
+libinput-gestures-setup autostart
 libinput-gestures-setup start
 cp /etc/libinput-gestures.conf ~/.config/libinput-gestures.conf
 vim ~/.config/libinput-gestures.conf
@@ -142,16 +148,18 @@ vim ~/.config/libinput-gestures.conf
 
 末尾追加
 
-```plain
-gesture swipe down 3	xdotool key ctrl+F12    // 三指下滑回到桌面
-gesture swipe up 3	xdotool key ctrl+F10      // 三指上滑查看窗口
-gesture swipe right 4	xdotool key meta+Tab    // 四指右滑切换窗口
-gesture swipe left 4	xdotool key meta+Tab    // 四指左滑切换窗口
+```conf
+gesture swipe down 3	xdotool key ctrl+F12    # 三指下滑回到桌面
+gesture swipe up 3	xdotool key ctrl+F10      # 三指上滑查看窗口
+gesture swipe right 4	xdotool key meta+Tab    # 四指右滑切换窗口
+gesture swipe left 4	xdotool key meta+Tab    # 四指左滑切换窗口
 ```
 
 ```bash
 libinput-gestures-setup restart
 ```
+
+然后记得在 『System Settings』 -> 『Input Devices』 -> 『Touchpad』 -> 启用 『Tap-to-click』 （轻触点击） 和 『Tap-and-drag』 （轻触2下拖拽），这样子触控板就弄好啦
 
 ## 编辑器
 
@@ -198,15 +206,44 @@ sudo pacman -S kate
 [innovation@arch ~]$ sudo pacman -S deepin-music
 ```
 
+## makepkg 优化
 
-## 解压缩软件及其依赖
+### 并行编译
 
-* ark: 可视化解压缩软件
-* 其余均为依赖
+make 编译系统使用 **MAKEFLAGS** 环境变量来指定 make 的额外选项。这个值可以在 */etc/makepkg.conf* 中进行设置。
+
+使用多核处理器的用户可以设定同时运行的任务数。可以用 **nproc** 获得可用处理器的个数，例如 **MAKEFLAGS="-j$(nproc)"** 如果 $(nproc) 结果是 4， 则使用 -j4. 有些 PKGBUILD 强制使用 -j1，因为某些版本会产生冲突或者软件包并不支持。如果出现软件包因为此原因无法编译，请在 bug 系统中报告。（或者，对于AUR软件包，应报告给软件包维护者）。
 
 ```bash
-sudo pacman -S p7zip unrar zip unzip ark
+sudo vim /etc/makepkg.conf
 ```
+
+取消注释并修改 **MAKEFLAGS**
+
+```conf
+MAKEFLAGS="-j$(nproc)"
+```
+
+### 使用内存文件系统进行编译
+
+编译过程需要大量的读写操作，要处理很多小文件。将工作目录移动到 tmpfs 可以减少编译时间。
+
+使用BUILDDIR变量可以临时将 makepkg 的编译目录设置到 tmpfs：
+
+```bash
+$ BUILDDIR=/tmp/makepkg makepkg
+```
+
+**Warning**:
+
+> 修改 makepkg.conf 的 BUILDDIR 选项可以永久变更编译目录。Arch 的默认 tmpfs 目录是 /tmp. 此变量可以设置为：*BUILDDIR=/tmp/makepkg* 。
+
+取消注释 **BUILDDIR**
+
+**Note**:
+> * 编译大工程可能导致内存不足。
+> * tmpfs 目录挂载时不能使用 noexec 选项，否则编译命令可能无法执行。
+> * 在 tmpfs 中编译的文件重起后会消失，设置 PKGDEST 选项可以将编译结果保存到其它目录。
 
 ## 下载器
 
@@ -253,7 +290,9 @@ socks5 127.0.0.1 8080
 
 ### curl and pacman proxy
 
+```bash
 export all_proxy="socks5://127.0.0.1:1080"
+```
 
 ## JDK
 
@@ -324,26 +363,25 @@ sudo pacman -S android-udev
 软件包会安装到/opt/android-sdk。 这个目录需要 root 权限，所以你需要以 root 用户运行 sdk manager，否则你将无法修改这个目录中的内容。 如果打算以一般用户权限来访问，需要创建 android sdk 用户组（名称任意）：
 
 ```bash
-# groupadd sdkusers
+sudo groupadd sdkusers
 
 然后将用户添加到这个组中：
-# gpasswd -a <user> sdkusers
+sudo gpasswd -a $USER sdkusers
 
 修改目录所属的用户组：
-# chown -R :sdkusers /opt/android-sdk/
+sudo chown -R :sdkusers /opt/android-sdk/
 
 修改目录的权限，使得刚加入组中的用户也能在目录中写入：
-# chmod -R g+w /opt/android-sdk/
-
-重新登录或者以 <user> 登录终端的用户组变为新建的组：
-$ newgrp sdkusers
+sudo chmod -R g+w /opt/android-sdk/
 ```
 
-注意: 除了上述 AUR 全局安装的方式，还可以参考上游说明将 SDK 安装到用户 home 目录。你也可以使用AUR中的 android-*-dummy 软件包来解决系统依赖。
+注销并重新登录
 
 ## Telegram Desktop
 
+```bash
 sudo pacman -S telegram-desktop
+```
 
 ## Tomcat
 
@@ -372,9 +410,11 @@ drwxrwxr-x 2 tomcat8 tomcat8 4096 Jun  4  2019 /var/tmp/tomcat8/temp
 drwxrwxr-x 2 tomcat8 tomcat8 4096 Jun  4  2019 /var/tmp/tomcat8/work
 ```
 
+```bash
 sudo pacman -S tomcat8
+```
 
-路径：
+Tomcat Home 目录：
 /usr/share/tomcat8
 
 ```bash
@@ -465,8 +505,10 @@ SELECT DISTINCT User FROM mysql.user;
 > * **mariadb** 软件包已经使用 *utf8mb4* 作为字符集和 *utf8mb4_unicode_ci* 作为排序规则。
 > * 建议使用UTF8MB4，因为它可以完全支持Unicode。
 
+```bash
 sudo mkdir /etc/mysql
 sudo vim /etc/mysql/my.cnf
+```
 
 将以下值附加到位于 **/etc/mysql/my.cnf** 的主配置文件中：
 
@@ -541,7 +583,9 @@ sudo pacman -Rs vmware-systemd-services gtkmm pcsclite
 
 ## diff 工具
 
+```bash
 sudo pacman -S meld
+```
 
 ## StarUML
 
@@ -583,53 +627,7 @@ makepkg -si
 Resetting all the keys
 If you want to remove or reset all the keys installed in your system, you can remove `/etc/pacman.d/gnupg` folder as root and rerun `pacman-key --init` followed by `pacman-key --populate archlinux` to re-add the default keys.
 
-
-## makepkg 优化
-
-### 并行编译
-
-make 编译系统使用 **MAKEFLAGS** 环境变量来指定 make 的额外选项。这个值可以在 */etc/makepkg.conf* 中进行设置。
-
-使用多核处理器的用户可以设定同时运行的任务数。可以用 **nproc** 获得可用处理器的个数，例如 **MAKEFLAGS="-j$(nproc)"** 如果 $(nproc) 结果是 4， 则使用 -j4. 有些 PKGBUILD 强制使用 -j1，因为某些版本会产生冲突或者软件包并不支持。如果出现软件包因为此原因无法编译，请在 bug 系统中报告。（或者，对于AUR软件包，应报告给软件包维护者）。
-
-```bash
-sudo vim /etc/makepkg.conf
-```
-
-取消注释并修改 **MAKEFLAGS**
-
-```conf
-MAKEFLAGS="-j$(nproc)"
-```
-
-### 使用内存文件系统进行编译
-
-编译过程需要大量的读写操作，要处理很多小文件。将工作目录移动到 tmpfs 可以减少编译时间。
-
-使用BUILDDIR变量可以临时将 makepkg 的编译目录设置到 tmpfs：
-
-```bash
-$ BUILDDIR=/tmp/makepkg makepkg
-```
-
-**Warning**:
-
-> 修改 makepkg.conf 的 BUILDDIR 选项可以永久变更编译目录。Arch 的默认 tmpfs 目录是 /tmp. 此变量可以设置为：*BUILDDIR=/tmp/makepkg* 。
-
-取消注释 **BUILDDIR**
-
-**Note**:
-> * 编译大工程可能导致内存不足。
-> * tmpfs 目录挂载时不能使用 noexec 选项，否则编译命令可能无法执行。
-> * 在 tmpfs 中编译的文件重起后会消失，设置 PKGDEST 选项可以将编译结果保存到其它目录。
-
 ## Office 套件
-
-### 安装 git 和 base-devel
-
-```bash
-[innovation@arch ~]$ sudo pacman -S git base-devel
-```
 
 ### 编译安装 jade-application-kit
 
@@ -651,11 +649,15 @@ $ BUILDDIR=/tmp/makepkg makepkg
 
 ## RSS 阅读器
 
+### raven-reader
+
 * raven-reader: https://aur.archlinux.org/packages/raven-reader/
 - [x] 已测试Arch仓库版本
 - [x] 已测试通用包
 
 ![图片1](https://d2.alternativeto.net/dist/s/reaven-reader_769651_full.png?format=jpg&width=1600&height=1600&mode=min&upscale=false)
+
+### Winds
 
 * Winds: https://snapcraft.io/install/winds/arch
   * 通用包: https://s3.amazonaws.com/winds-2.0-releases/releases/Winds-3.2.0.AppImage
@@ -664,12 +666,16 @@ $ BUILDDIR=/tmp/makepkg makepkg
 
 ![图片2](https://res.cloudinary.com/canonical/image/fetch/q_auto,f_auto,w_1170/https://dashboard.snapcraft.io/site_media/appmedia/2018/05/app_store_01.png)
 
+### alduin
+
 * alduin: https://aur.archlinux.org/packages/alduin/
   * 通用包: https://github.com/AlduinApp/alduin/releases/download/2.0.1/alduin-2.0.1-x86_64.AppImage
 - [x] 已测试Arch仓库版本 **失败**
 - [x] 已测试通用包 **失败**
 
 ![图片3](https://camo.githubusercontent.com/2924349c69dbcab6aa261e5eb51ba0d9cbe8b630/68747470733a2f2f692e696d6775722e636f6d2f6569394748444b2e706e67)
+
+### feedreader
 
 * feedreader: https://www.archlinux.org/packages/community/x86_64/feedreader/
   * flatpak 版本: https://flathub.org/apps/details/org.gnome.FeedReader
