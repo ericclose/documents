@@ -1,4 +1,5 @@
 - [推荐应用](#%e6%8e%a8%e8%8d%90%e5%ba%94%e7%94%a8)
+  - [bash 补全](#bash-%e8%a1%a5%e5%85%a8)
   - [中文](#%e4%b8%ad%e6%96%87)
   - [分区工具](#%e5%88%86%e5%8c%ba%e5%b7%a5%e5%85%b7)
   - [Dolphin 鼠标右键菜单打开 deepin-terminal](#dolphin-%e9%bc%a0%e6%a0%87%e5%8f%b3%e9%94%ae%e8%8f%9c%e5%8d%95%e6%89%93%e5%bc%80-deepin-terminal)
@@ -69,6 +70,14 @@
     - [raven-reader](#raven-reader-1)
 
 # 推荐应用
+
+## bash 补全
+
+尽管Bash原生支持基本的文件名，命令和变量的自动补全，但是这个根本不够，所以我们需要安装 *bash-completion* 扩充它的功能。
+
+```bash
+sudo pacman -S bash-completion
+```
 
 ## 中文
 
