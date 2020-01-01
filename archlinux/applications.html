@@ -40,6 +40,12 @@
 <li><a href="#%e5%9b%be%e7%89%87%e6%9f%a5%e7%9c%8b%e5%99%a8">图片查看器</a></li>
 <li><a href="#wi-fi-%e7%83%ad%e7%82%b9">Wi-Fi 热点</a></li>
 <li><a href="#%e8%a7%86%e9%a2%91%e6%92%ad%e6%94%be%e5%99%a8">视频播放器</a></li>
+<li><a href="#%e7%a1%ac%e4%bb%b6%e8%a7%86%e9%a2%91%e5%8a%a0%e9%80%9f">硬件视频加速</a>
+<ul>
+<li><a href="#intel-%e9%9b%86%e6%88%90%e6%98%be%e5%8d%a1">Intel 集成显卡</a></li>
+<li><a href="#nvidia-%e7%8b%ac%e7%ab%8b%e6%98%be%e5%8d%a1">Nvidia 独立显卡</a></li>
+</ul>
+</li>
 <li><a href="#%e9%9f%b3%e4%b9%90%e6%92%ad%e6%94%be%e5%99%a8">音乐播放器</a></li>
 <li><a href="#makepkg-%e4%bc%98%e5%8c%96">makepkg 优化</a>
 <ul>
@@ -190,6 +196,16 @@ sudo pacman -S kate
 </div></code></pre>
 <h2 id="%e8%a7%86%e9%a2%91%e6%92%ad%e6%94%be%e5%99%a8">视频播放器</h2>
 <pre><code class="language-bash"><div>[innovation@arch ~]$ sudo pacman -S vlc
+</div></code></pre>
+<h2 id="%e7%a1%ac%e4%bb%b6%e8%a7%86%e9%a2%91%e5%8a%a0%e9%80%9f">硬件视频加速</h2>
+<p>硬件视频加速让显卡进行视频的解码和编码，以减少CPU的负载并节省电力。</p>
+<h3 id="intel-%e9%9b%86%e6%88%90%e6%98%be%e5%8d%a1">Intel 集成显卡</h3>
+<p>2015年之后的 Intel G45 和 Intel HD Graphics 系列集显的 VA-API 实现由 <em>libva-intel-driver</em> 提供支持</p>
+<pre><code class="language-bash"><div>sudo pacman -S libva-intel-driver
+</div></code></pre>
+<h3 id="nvidia-%e7%8b%ac%e7%ab%8b%e6%98%be%e5%8d%a1">Nvidia 独立显卡</h3>
+<p>如果装了 NVIDIA 专有驱动的由 <em>nvidia-utils</em> 提供支持</p>
+<pre><code class="language-bash"><div>sudo pacman -S nvidia-utils
 </div></code></pre>
 <h2 id="%e9%9f%b3%e4%b9%90%e6%92%ad%e6%94%be%e5%99%a8">音乐播放器</h2>
 <!-- 为了让gstreamer发挥作用，安装你所需要的插件

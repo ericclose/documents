@@ -12,6 +12,9 @@
   - [图片查看器](#%e5%9b%be%e7%89%87%e6%9f%a5%e7%9c%8b%e5%99%a8)
   - [Wi-Fi 热点](#wi-fi-%e7%83%ad%e7%82%b9)
   - [视频播放器](#%e8%a7%86%e9%a2%91%e6%92%ad%e6%94%be%e5%99%a8)
+  - [硬件视频加速](#%e7%a1%ac%e4%bb%b6%e8%a7%86%e9%a2%91%e5%8a%a0%e9%80%9f)
+    - [Intel 集成显卡](#intel-%e9%9b%86%e6%88%90%e6%98%be%e5%8d%a1)
+    - [Nvidia 独立显卡](#nvidia-%e7%8b%ac%e7%ab%8b%e6%98%be%e5%8d%a1)
   - [音乐播放器](#%e9%9f%b3%e4%b9%90%e6%92%ad%e6%94%be%e5%99%a8)
   - [makepkg 优化](#makepkg-%e4%bc%98%e5%8c%96)
     - [并行编译](#%e5%b9%b6%e8%a1%8c%e7%bc%96%e8%af%91)
@@ -184,6 +187,26 @@ sudo pacman -S kate
 
 ```bash
 [innovation@arch ~]$ sudo pacman -S vlc
+```
+
+## 硬件视频加速
+
+硬件视频加速让显卡进行视频的解码和编码，以减少CPU的负载并节省电力。
+
+### Intel 集成显卡
+
+2015年之后的 Intel G45 和 Intel HD Graphics 系列集显的 VA-API 实现由 *libva-intel-driver* 提供支持
+
+```bash
+sudo pacman -S libva-intel-driver
+```
+
+### Nvidia 独立显卡
+
+如果装了 NVIDIA 专有驱动的由 *nvidia-utils* 提供支持
+
+```bash
+sudo pacman -S nvidia-utils
 ```
 
 ## 音乐播放器
