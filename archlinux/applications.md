@@ -668,6 +668,12 @@ makepkg -si
 Resetting all the keys
 If you want to remove or reset all the keys installed in your system, you can remove `/etc/pacman.d/gnupg` folder as root and rerun `pacman-key --init` followed by `pacman-key --populate archlinux` to re-add the default keys.
 
+```bash
+sudo rm -rf /etc/pacman.d/gnupg
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+```
+
 ## Office 套件
 
 ### 编译安装 jade-application-kit
