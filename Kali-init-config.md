@@ -38,6 +38,8 @@ Host *
     IPQoS=throughput
 ```
 
+>参考自：[SSH 一连接就 packet_write_wait 断掉的解决方法](https://frankr0.github.io/tricks/SSH-connections-dropped-due-to-QoS-flags/)
+
 2. 如果能 ping 通 ip 地址，但是不能通过浏览器输入域名访问相关网页，则很可能是域名解析出了问题。
 这时需要配置域名解析服务器的 ip 地址。
 用 Linux 的内置编辑器 `vi` 打开 `/etc/resolv.conf`
