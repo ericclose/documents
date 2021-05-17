@@ -6,10 +6,10 @@
 vim /etc/ssh/sshd_config
 ```
 
-在文件末尾追加以下内容：
+取消 `PasswordAuthentication yes` 的注释（即去掉 `#`）：
 
 ```conf
-PermitRootLogin yes
+#PasswordAuthentication yes
 ```
 
 之后启动`sshd`服务即可：
