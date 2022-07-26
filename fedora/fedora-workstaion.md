@@ -1,0 +1,144 @@
+## Fedora Workstation 配置
+
+### 自启动 sshd 服务
+
+```bash
+sudo systemctl enable --now sshd
+```
+
+---
+
+### Nvidia
+
+## Determining your card model
+
+NVIDIA has several driver series, each of which has different hardware support. To determine which driver you need to install, you'll first need to find your graphics card model.
+
+If you don't know it, open a Terminal (Applications > System Tools > Terminal) and type:
+
+```bash
+/sbin/lspci | grep -e VGA
+```
+
+You can also check the [supported chips](https://download.nvidia.com/XFree86/Linux-x86_64/495.44/README/supportedchips.html) section and see which series is recommended for you card, then install the appropriate driver series. Please remember that you need additional steps for optimus.
+
+You are probably in the [Optimus](https://rpmfusion.org/Howto/Optimus) case if your NVIDIA card is found with the next command:
+
+```bash
+/sbin/lspci | grep -e 3D
+```
+
+## Installing the drivers
+
+Please remember that once the driver is installed, there is no need to configure xorg.conf by default. Changes will take effect after a ***full reboot*** on the newest kernel.
+
+⚠️ The ***Secure Boot*** Please have a look on [Howto/Secure Boot](https://rpmfusion.org/Howto/Secure%20Boot) in order to sign the nvidia kmod. You will have to enter the BIOS/EFI to import your self generated key.
+
+### Current GeForce/Quadro/Tesla
+
+Supported on current stable Xorg server release.
+
+This driver is suitable for any GPU found in 2014 and later.
+
+⚠️ The 510+ driver is available by default on Fedora 34+ and later and has dropped support for some older Kepler GPU.
+
+```bash
+sudo dnf update -y # and reboot if you are not on the latest kernel
+sudo dnf install akmod-nvidia # rhel/centos users can use kmod-nvidia instead
+sudo dnf install xorg-x11-drv-nvidia-cuda #optional for cuda/nvdec/nvenc support
+```
+
+⚠️ Please remember to wait after the RPM transaction ends, until the kmod get built. This can take up to 5 minutes on some systems.
+
+Once the module is built, "`modinfo -F version nvidia`" should outputs the version of the driver such as 440.64 and not modinfo: ERROR: Module nvidia not found.
+
+```bash
+# 重启进入 BIOS，关掉安全启动
+sudo systemctl reboot --firmware-setup
+```
+
+---
+
+### Vim
+
+```bash
+sudo dnf install vim
+```
+
+---
+
+### Using fractional scaling on Wayland
+
+```bash
+gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+sudo systemctl reboot
+```
+
+---
+
+### clash
+
+```bash
+su - root
+gzip -dc clash-linux-amd64-v3-v1.10.6.gz > /usr/local/bin/clash
+chmod +x /usr/local/bin/clash
+mkdir /etc/clash
+curl https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb > /etc/clash/Country.mmdb
+curl 订阅链接 > /etc/clash/config.yaml
+
+vim /etc/systemd/system/clash.service
+```
+
+```ini
+[Unit]
+Description=Clash daemon, A rule-based proxy in Go.
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/local/bin/clash -d /etc/clash
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+git clone -b gh-pages --depth 1 https://github.com/Dreamacro/clash-dashboard /opt/clash-dashboard
+```
+
+```bash
+vim /etc/clash/config.yaml
+```
+
+```yaml
+......
+external-ui: /opt/clash-dashboard
+......
+```
+
+---
+
+### qq
+
+```bash
+sudo dnf install https://github.com/Icalingua-plus-plus/Icalingua-plus-plus/releases/download/v2.6.2/icalingua-2.6.2.x86_64.rpm
+```
+
+### wechat
+
+```bash
+git clone https://github.com/catsout/flatpak-wechat.git
+flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install --user org.electronjs.Electron2.BaseApp
+flatpak install --user org.freedesktop.Sdk
+sudo dnf install flatpak-builder
+make -j$(nproc)
+make install
+```
+
+### TencentMeeting
+
+```bash
+flatpak install --user flathub com.tencent.wemeet
+```
