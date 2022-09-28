@@ -48,3 +48,8 @@ opkg install kmod-usb-storage-uas
 opkg install kmod-fs-exfat
 opkg install libblkid1
 ```
+
+## Reference
+
+* [OpenWrt Wiki - Installing and troubleshooting USB Drivers](https://openwrt.org/docs/guide-user/storage/usb-installing#to_install_usb_drivers_manually)
+* [OpenWrt Wiki - Filesystems](https://openwrt.org/docs/guide-user/storage/filesystems-and-partitions#set_up_exfat)
