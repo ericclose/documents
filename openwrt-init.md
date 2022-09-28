@@ -30,3 +30,21 @@ config interface 'wan6'
 
 opkg update
 ```
+
+## To install USB drivers manually
+
+```bash
+# Install the USB storage package (all USB versions)
+opkg install kmod-usb-storage
+
+# Install USB 3.0 drivers
+opkg install kmod-usb3
+insmod xhci-hcd
+
+# To install support for UASP aka USB Attached SCSI (supported by many USB drives and drive enclosures, especially if USB 3.0. It enhances performance if it's supported by both the drive and the host controller in your device)
+opkg install kmod-usb-storage-uas
+
+# This will download the driver to use exFAT, there are currently no tools in OpenWrt to format/check exFAT
+opkg install kmod-fs-exfat
+opkg install libblkid1
+```
