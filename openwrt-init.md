@@ -19,6 +19,9 @@ config interface 'wan'
         option username 'username'
         option password 'password'
         option ipv6 'auto'
+        option peerdns '0'
+        list dns '223.5.5.5'
+        list dns '223.6.6.6'
 
 config interface 'wan6'
         option device 'eth1'
@@ -51,5 +54,8 @@ opkg install libblkid1
 
 ## Reference
 
+* [OpenWrt Wiki - PPPoE internet connection](https://openwrt.org/docs/guide-user/network/wan/wan_interface_protocols#pppoe_internet_connection)
+* [OpenWrt Wiki - OpenWrt as router device](https://openwrt.org/docs/guide-user/network/openwrt_as_routerdevice#command-line_instructions)
+* [OpenWrt Wiki - Upstream DNS provider](https://openwrt.org/docs/guide-user/base-system/dhcp_configuration#upstream_dns_provider)
 * [OpenWrt Wiki - Installing and troubleshooting USB Drivers](https://openwrt.org/docs/guide-user/storage/usb-installing#to_install_usb_drivers_manually)
 * [OpenWrt Wiki - Filesystems](https://openwrt.org/docs/guide-user/storage/filesystems-and-partitions#set_up_exfat)
