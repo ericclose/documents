@@ -7,5 +7,6 @@ cscript ospp.vbs /act
 
 cscript OSPP.VBS /dstatus
 
+# 取消使用某个产品密钥
 cscript ospp.vbs /unpkey:<PRODUCT_KEY>
 ```
