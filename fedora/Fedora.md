@@ -190,3 +190,5 @@ Clean up and reboot
 umount -R /mnt
 reboot
 ```
+
+* Ref: [Minimal Fedora Installation via Chroot](https://glacion.com/2019/06/16/Fedora.html)
