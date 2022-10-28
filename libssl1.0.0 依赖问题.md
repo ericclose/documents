@@ -1,3 +1,4 @@
+```bash
 eric@kali:~$ sudo apt-get install -y mssql-server
 Reading package lists... Done
 Building dependency tree       
@@ -11,8 +12,12 @@ The following information may help to resolve the situation:
 The following packages have unmet dependencies:
  mssql-server : Depends: libssl1.0.0 but it is not installable
 E: Unable to correct problems, you have held broken packages.
+```
+
 You should be able to use any of the listed mirrors by adding a line to your /etc/apt/sources.list like this:
 
+```bash
 deb http://security.debian.org/debian-security jessie/updates main
 
 sudo apt update
+```
