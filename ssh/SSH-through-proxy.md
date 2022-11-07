@@ -14,7 +14,7 @@ ssh username@x.x.x.x -o "ProxyCommand=connect -H 127.0.0.1:7890 %h %p"
 ssh username@x.x.x.x -o "ProxyCommand=nc -X connect -x 127.0.0.1:7890 %h %p"
 ```
 
-Linux 用户可能需要自行安装 OpenBSD netcat 才能与 macOS 的命令相一致，此处以 Fedora 为例子：
+Linux 用户可能需要自行安装 OpenBSD netcat，否则可能报错，此处以 Fedora 为例子：
 
 ```bash
 # 查询提供 nc 命令的软件包（查询到 netcat 和 nmap-ncat）
