@@ -83,7 +83,7 @@ su - root
 gzip -dc clash-linux-amd64-v3-v1.10.6.gz > /usr/local/bin/clash
 chmod +x /usr/local/bin/clash
 mkdir /etc/clash
-curl https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb > /etc/clash/Country.mmdb
+curl -L https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb > /etc/clash/Country.mmdb
 curl 订阅链接 > /etc/clash/config.yaml
 
 vim /etc/systemd/system/clash.service
