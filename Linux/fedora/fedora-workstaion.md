@@ -80,7 +80,7 @@ sudo systemctl reboot
 
 ```bash
 su - root
-gzip -dc clash-linux-amd64-v3-v1.10.6.gz > /usr/local/bin/clash
+gzip -dc clash*.gz > /usr/local/bin/clash
 chmod +x /usr/local/bin/clash
 mkdir /etc/clash
 curl -L https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb > /etc/clash/Country.mmdb
@@ -115,6 +115,16 @@ vim /etc/clash/config.yaml
 ......
 external-ui: /opt/clash-dashboard
 ......
+```
+
+**服务**
+
+```bash
+# 因为 Fedora 默认启用 cockpit，占用 9090 端口，与 clash-dashboard 端口冲突，故禁用之
+sudo systemctl disable --now cockpit.socket
+
+# 因 systemd-reslove 服务占用 9090 端口，与 clash 的 DNS 端口冲突，故禁用之
+sudo systemctl disable --now systemd-resolved.service
 ```
 
 ---
