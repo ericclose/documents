@@ -32,4 +32,7 @@ sudo dnf -y install sddm
 sudo systemctl enable sddm
 sudo systemctl set-default graphical.target
 reboot
+
+# Noto Sans CJK SC font
+sudo dnf -y install google-noto-sans-cjk-sc-fonts
 ```
