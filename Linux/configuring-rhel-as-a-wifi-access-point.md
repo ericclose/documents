@@ -90,4 +90,4 @@ Connection successfully activated (D-Bus active path: /org/freedesktop/NetworkMa
 ## Reference
 
 * [Configuring RHEL as a wifi access point](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/configuring_and_managing_networking/assembly_configuring-rhel-as-a-wifi-access-point_configuring-and-managing-networking)
-* [802-11-wireless](https://developer-old.gnome.org/NetworkManager/stable/settings-802-11-wireless.html)
+* [nm-settings-nmcli - 802-11-wireless setting](https://networkmanager.dev/docs/api/latest/nm-settings-nmcli.html#:~:text=802%2D11%2Dwireless%20setting)
