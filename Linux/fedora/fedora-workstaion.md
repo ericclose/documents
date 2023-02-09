@@ -127,6 +127,14 @@ sudo systemctl disable --now cockpit.socket
 sudo systemctl disable --now systemd-resolved.service
 ```
 
+**Firewall-cmd**
+
+```bash
+# allow 9090/tcp port for clash external controller
+sudo firewall-cmd --permanent --add-port=9090/tcp
+sudo firewall-cmd --reload
+```
+
 ---
 
 ### qq
