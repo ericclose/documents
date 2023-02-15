@@ -101,6 +101,7 @@ sudo dnf update
 
 ```bash
 sudo dnf install kernel
+sudo dracut -Nfv --regenerate-all
 sudo bootctl install
 sudo cp /usr/lib/modules/5.13.12-200.fc34.x86_64/vmlinuz /boot/vmlinuz-linux
 sudo cp /boot/initramfs-5.13.12-200.fc34.x86_64.img /boot/initramfs-linux.img
@@ -165,7 +166,6 @@ options    root=UUID=<UUID_OF_ROOT_PARTITION> ro quiet
 
 ```
 sudo dnf install efibootmgr
-dracut -Nfv --regenerate-all
 ```
 
 ---
