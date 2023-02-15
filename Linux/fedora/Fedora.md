@@ -7,7 +7,7 @@ ssh liveuser@127.0.0.1
 
 sudo dnf install vim
 sudo setenforce 0
-wget https://github.com/glacion/genfstab/releases/download/1.0/genfstab; chmod +x genfstab
+wget https://github.com/glacion/genfstab/releases/download/2.0/genfstab; chmod +x genfstab
 ```
 
 ---
