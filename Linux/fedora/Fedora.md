@@ -165,6 +165,7 @@ options    root=UUID=<UUID_OF_ROOT_PARTITION> ro quiet
 
 ```
 sudo dnf install efibootmgr
+dracut -Nfv --regenerate-all
 ```
 
 ---
