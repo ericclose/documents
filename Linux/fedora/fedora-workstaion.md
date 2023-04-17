@@ -148,12 +148,16 @@ sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-releas
 ### qq
 
 ```bash
-sudo dnf install https://github.com/Icalingua-plus-plus/Icalingua-plus-plus/releases/download/v2.6.2/icalingua-2.6.2.x86_64.rpm
+flatpak install --user flathub com.qq.QQ
+
+# icalingua
+# sudo dnf install https://github.com/Icalingua-plus-plus/Icalingua-plus-plus/releases/download/v2.6.2/icalingua-2.6.2.x86_64.rpm
 ```
 
 ### wechat
 
 ```bash
+# v21.08
 git clone https://github.com/catsout/flatpak-wechat.git
 flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install --user org.electronjs.Electron2.BaseApp
