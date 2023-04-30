@@ -70,7 +70,8 @@ sudo dnf install vim
 ### Using fractional scaling on Wayland
 
 ```bash
-gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+# gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+sudo dnf -y install gnome-tweaks
 sudo systemctl reboot
 ```
 
