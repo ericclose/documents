@@ -8,6 +8,8 @@ ssh username@x.x.x.x -o "ProxyCommand=connect -H 127.0.0.1:7890 %h %p"
 
 > * **注**：7890 为 clash 的 HTTP 代理端口
 
+然后将 Git 安装目录下的 `mingw64\bin` （如 `D:\Program Files\Git\mingw64\bin` ）添加至环境变量 PATH
+
 ---
 
 * 当你使用的是 Linux 的终端(使用 nmap-ncat)时，输入如下命令即可通过代理 ssh 登录远程服务器：
