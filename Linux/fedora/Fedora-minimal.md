@@ -53,5 +53,6 @@ sudo systemctl set-default graphical.target
 
 ```bash
 # Noto Sans CJK SC font
-sudo dnf -y install google-noto-sans-cjk-sc-fonts
+# sudo dnf -y install google-noto-sans-cjk-sc-fonts
+sudo dnf -y install google-noto-sans-cjk-vf-fonts
 ```
