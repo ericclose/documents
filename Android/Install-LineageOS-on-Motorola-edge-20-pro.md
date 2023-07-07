@@ -247,9 +247,9 @@ fastboot flash --slot all boot magisk_patched*.img
 
 > 到目前为止，在最新的官方 LineageOS 构建 *20-20230704-NIGHTLY-pstar* 中发现了以下问题：
 > 
-> 1. 当显示设置中的**最低和峰值刷新率低于90Hz时，会出现肉眼可见的屏闪问题**（即使是反屏闪选项处于开启状态）。
+> 1. 当显示设置中的**最低和峰值刷新率低于90Hz时，会出现肉眼可见的屏闪问题**（即使是反屏闪选项处于开启状态），手动将其调至为 90Hz 及以上即可。
 > 
-> 2. 设置 ➡️ Display ➡️ LiveDisplay ➡️ 显示模式，当设置为自动（默认值）或户外时。它将触发随机黑屏问题。
+> 2. 设置 ➡️ Display ➡️ LiveDisplay ➡️ 显示模式，当设置为自动（默认值）或户外时。它将触发随机黑屏问题。关闭此功能即可解决问题
 > 
 > 3. 启用 USB 调试时，MTP 不工作（[更多细节和解决方法](https://forum.xda-developers.com/t/official-lineageos-20-for-the-moto-edge-20-pro.4594251/post-88716503)）。
 > 
