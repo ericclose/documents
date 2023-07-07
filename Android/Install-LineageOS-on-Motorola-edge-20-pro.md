@@ -2,6 +2,10 @@
 
 本文将指引您将 Edge S Pro 刷入开源社区的 LineageOS 20 系统，本文将涵盖一些常见问题的 workaround。
 
+> 本文内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议
+> 
+> 本文永久链接是: [https://github.com/ericclose/documents/blob/master/Android/Install-LineageOS-on-Motorola-edge-20-pro.md](https://github.com/ericclose/documents/blob/master/Android/Install-LineageOS-on-Motorola-edge-20-pro.md)
+
 ## 目录
 
 - [Edge S Pro 刷入 Official LineageOS 20 教程](#edge-s-pro-刷入-official-lineageos-20-教程)
