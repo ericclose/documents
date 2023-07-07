@@ -121,8 +121,8 @@
   
   * `persist`：主管出厂的一些数据，例如 IMEI、蓝牙，WIFI MAC 地址、设备 SN 等参数
 
-> 1. **下载** Lineage recovery
-> * Lineage recovery [下载地址](https://download.lineageos.org/devices/pstar/builds)（下载最新版本的 `boot.img` 即可）
+> 1. **下载** LineageOS 19.1 配套的 recovery
+> * LineageOS 19.1 recovery [下载地址](https://web.archive.org/web/20230707083131if_/https://gemmei.ftp.acc.umu.se/mirror/lineageos/full/pstar/20230606/boot.img)（最新版本的 LineageOS 20 的 `boot.img` 必须与 dtbo 和 vendor_boot 配套刷入才能正常使用，19.1 的则可以独立使用）
 > 2. 将手机**重启至 bootloader 模式**，通过命令**刷入 Lineage recovery**
 
 ```bash
