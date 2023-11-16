@@ -19,3 +19,8 @@ This configuration enable the wireless interface 0, and set something following:
 * ESSID: `OpenWrt0815`
 * Key: `HelloWorld`
 * Encryption: `WPA2-PSK/WPA3-SAE Mixed Mode (strong security)`
+
+## Reference
+
+* [OpenWrt Firmware Selector](https://firmware-selector.openwrt.org/)
+* [OpenWrt Wiki - UCI defaults](https://openwrt.org/docs/guide-developer/uci-defaults)
