@@ -192,8 +192,10 @@ adb sideload lineage-20.0-*-nightly-pstar-signed.zip
 
 # Gapps
 # 如果需要刷入 Gapps，建议刷入 MindTheGapps
-# MindTheGapps 下载链接（请根据您刷入系统的 Android 版本进行选择，如本文 LineageOS 20 对应 Android 13）： 
-# https://androidfilehost.com/?w=files&flid=322935
+# MindTheGapps Wiki 链接（请根据您刷入系统的 Android 版本和处理器架构进行选择）： 
+# https://wiki.lineageos.org/gapps/
+# 如本文 LineageOS 20 对应 Android 13，现在的设备均是 ARM 架构 64 位。下载路径为：
+# https://github.com/MindTheGapps/13.0.0-arm64/releases/latest
 # 刚刷完 LineageOS 刷机包，得再先重启至 recovery 一次（否则可能遇到分区挂载失败，刷写报错）
 # 刷入方法一样是通过 adb sideload：
 adb sideload MindTheGapps-13.0.0-arm64-*.zip
