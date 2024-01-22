@@ -50,7 +50,7 @@
 
 * 配置 ADB 的环境变量的步骤
   
-  * [ADB 下载](https://dl.google.com/android/repository/platform-tools_r33.0.3-windows.zip)
+  * [ADB 下载](https://dl.google.com/android/repository/platform-tools-latest-windows.zip)
   
   * ADB 环境变量的配置方法：
     
