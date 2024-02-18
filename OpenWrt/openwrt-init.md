@@ -20,7 +20,7 @@ config interface 'wan'
         option password 'password'
         option peerdns '0'
         list dns '223.5.5.5'
-        list dns '223.6.6.6'
+        list dns '119.29.29.29'
 
 config interface 'wan6'
         option device 'eth1'
