@@ -3,7 +3,7 @@
 * 当你使用的是 Windows 上的 Git Bash 时，输入如下命令即可通过代理 ssh 登录远程服务器：
 
 ```bash
-ssh username@x.x.x.x -o "ProxyCommand=connect -H 127.0.0.1:7890 %h %p"
+ssh -o "ProxyCommand=connect -H 127.0.0.1:7890 %h %p" username@x.x.x.x
 ```
 
 > * **注**：7890 为 clash 的 HTTP 代理端口
@@ -15,7 +15,7 @@ ssh username@x.x.x.x -o "ProxyCommand=connect -H 127.0.0.1:7890 %h %p"
 * 当你使用的是 Linux 的终端(使用 nmap-ncat)时，输入如下命令即可通过代理 ssh 登录远程服务器：
 
 ```bash
-ssh username@x.x.x.x -o "ProxyCommand=ncat --proxy 127.0.0.1:7890 --proxy-type http %h %p"
+ssh -o "ProxyCommand=ncat --proxy 127.0.0.1:7890 --proxy-type http %h %p" username@x.x.x.x
 ```
 
 ---
@@ -23,7 +23,7 @@ ssh username@x.x.x.x -o "ProxyCommand=ncat --proxy 127.0.0.1:7890 --proxy-type h
 * 当你使用的是 Linux / macOS 的终端(使用 netcat-openbsd)时，输入如下命令即可通过代理 ssh 登录远程服务器：
 
 ```bash
-ssh username@x.x.x.x -o "ProxyCommand=nc -X connect -x 127.0.0.1:7890 %h %p"
+ssh -o "ProxyCommand=nc -X connect -x 127.0.0.1:7890 %h %p" username@x.x.x.x
 ```
 
 Linux 用户请确保只有一个 nc 命令程序，nmap-ncat 和 netcat-openbsd 的命令用法和选项不一致，此处以 Fedora 为例子：
