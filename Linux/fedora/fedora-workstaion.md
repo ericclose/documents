@@ -79,15 +79,15 @@ sudo systemctl reboot
 
 ### clash
 
-```bash
-su - root
-gzip -dc clash*.gz > /usr/local/bin/clash
-chmod +x /usr/local/bin/clash
-mkdir /etc/clash
-curl -L https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb > /etc/clash/Country.mmdb
-curl 订阅链接 > /etc/clash/config.yaml
+<!-- ```bash
+# su - root
+# gzip -dc clash*.gz > /usr/local/bin/clash
+# chmod +x /usr/local/bin/clash
+# mkdir /etc/clash
+# curl -L https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb > /etc/clash/Country.mmdb
+# curl 订阅链接 > /etc/clash/config.yaml
 
-vim /etc/systemd/system/clash.service
+# vim /etc/systemd/system/clash.service
 ```
 
 ```ini
@@ -116,6 +116,20 @@ vim /etc/clash/config.yaml
 ......
 external-ui: /opt/clash-dashboard
 ......
+``` -->
+
+```bash
+curl https://api.github.com/repos/MetaCubeX/mihomo/releases/latest | grep browser_download_url | awk -F '"' '{ printf $4 "\n" }' | grep -E 'linux.*amd64.*rpm'
+sudo dnf install ./mihomo-linux-amd64-*.rpm
+
+sudo bash -c "curl 订阅链接 > /etc/mihomo/config.yaml"
+sudo sed -i -e 's|127.0.0.1:9090|0.0.0.0:9090|g' -e 's|# external-ui: folder|external-ui: /etc/mihomo/ui|g' /etc/mihomo/config.yaml
+
+sudo git clone https://github.com/metacubex/metacubexd.git -b gh-pages /etc/mihomo/ui
+# Update
+git -C /etc/mihomo/ui pull -r
+
+sudo systemctl start mihomo.service && sleep 15s && systemctl status mihomo.service
 ```
 
 **服务**
