@@ -1,6 +1,6 @@
 ## Requirements
 
-* [Python](https://www.python.org/downloads/)
+* [Python](https://www.python.org/downloads/) (currently maximum version: `python-3.12`)
 * [PyTorch](https://pytorch.org/get-started/locally/) (recommended CUDA version)
 * cuBLAS (included in the [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit-archive))
 * [cuDNN 9.x](https://developer.nvidia.com/cudnn)
