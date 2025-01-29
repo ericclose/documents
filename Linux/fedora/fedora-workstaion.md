@@ -12,7 +12,7 @@ sudo systemctl enable --now sshd
 
 ## Determining your card model
 
-NVIDIA has several driver series, each of which has different hardware support. To determine which driver you need to install, you'll first need to find your graphics card model.
+<!-- NVIDIA has several driver series, each of which has different hardware support. To determine which driver you need to install, you'll first need to find your graphics card model.
 
 If you don't know it, open a Terminal (Applications > System Tools > Terminal) and type:
 
@@ -50,11 +50,22 @@ sudo dnf install xorg-x11-drv-nvidia-cuda #optional for cuda/nvdec/nvenc support
 
 ⚠️ Please remember to wait after the RPM transaction ends, until the kmod get built. This can take up to 5 minutes on some systems.
 
-Once the module is built, "`modinfo -F version nvidia`" should outputs the version of the driver such as 440.64 and not modinfo: ERROR: Module nvidia not found.
+Once the module is built, "`modinfo -F version nvidia`" should outputs the version of the driver such as 440.64 and not modinfo: ERROR: Module nvidia not found. -->
 
 ```bash
-# 重启进入 BIOS，关掉安全启动
+# Make sure the Nvidia graphic card is present 
+lspci | grep -E '3D|VGA'
+
+# 进入 BIOS，关掉安全启动
 sudo systemctl reboot --firmware-setup
+
+# 1. Go to the Gnome Software
+# 2. Software Repositories, then enable *Nvidia Driver
+# 3. Install the NVIDIA Linux Graphics Driver
+# 4. Reboot once as normal, then 进入 BIOS，Enable Secure Boot
+sudo systemctl reboot --firmware-setup
+# 5. Reboot, and check the kernel modules works or not
+lsmod | grep -E 'nvidia|nouveau'
 ```
 
 ---
@@ -63,16 +74,6 @@ sudo systemctl reboot --firmware-setup
 
 ```bash
 sudo dnf install vim
-```
-
----
-
-### Using fractional scaling on Wayland
-
-```bash
-# gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
-sudo dnf -y install gnome-tweaks
-sudo systemctl reboot
 ```
 
 ---
