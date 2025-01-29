@@ -161,6 +161,20 @@ sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-releas
 
 ---
 
+### ibus Rime
+
+```bash
+sudo dnf -y install ibus-rime
+
+# append these line to ~/.bashrc
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_QPA_PLATFORM=xcb
+```
+
+---
+
 ### qq
 
 ```bash
