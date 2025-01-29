@@ -54,6 +54,15 @@ sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-releas
 
 ---
 
+### VLC
+
+```bash
+# with x265 support
+sudo dnf install --allowerasing vlc ffmpeg-libs x265-libs
+```
+
+---
+
 ### ibus-rime
 
 ```bash
