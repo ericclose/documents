@@ -10,8 +10,6 @@ sudo systemctl enable --now sshd
 
 ### Nvidia
 
-## Determining your card model
-
 <!-- NVIDIA has several driver series, each of which has different hardware support. To determine which driver you need to install, you'll first need to find your graphics card model.
 
 If you don't know it, open a Terminal (Applications > System Tools > Terminal) and type:
@@ -181,6 +179,7 @@ export QT_QPA_PLATFORM=xcb
 # * Docs: https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+sudo dnf -y install code
 ```
 
 ---
