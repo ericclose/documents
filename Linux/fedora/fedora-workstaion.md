@@ -195,18 +195,19 @@ flatpak install --user flathub com.qq.QQ
 ### wechat
 
 ```bash
-# v21.08
-git clone https://github.com/catsout/flatpak-wechat.git
-flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install --user org.electronjs.Electron2.BaseApp
-flatpak install --user org.freedesktop.Sdk
-sudo dnf install flatpak-builder
-make -j$(nproc)
-make install
+flatpak install --user flathub com.tencent.WeChat
 ```
 
 ### TencentMeeting
 
 ```bash
 flatpak install --user flathub com.tencent.wemeet
+```
+
+---
+
+### LocalSend
+
+```bash
+flatpak install --user org.localsend.localsend_app
 ```
