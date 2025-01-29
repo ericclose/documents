@@ -178,7 +178,7 @@ export QT_QPA_PLATFORM=xcb
 ### flathub
 
 ```bash
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ```
 
 ---
