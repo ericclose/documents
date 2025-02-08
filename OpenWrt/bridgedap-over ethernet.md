@@ -37,3 +37,7 @@
 * odhcpd
 
 5. 插拔网线，重启路由器
+
+## Reference
+
+* [Wi-Fi Extender/Repeater with Bridged AP over Ethernet - OpenWrt](https://openwrt.org/docs/guide-user/network/wifi/wifiextenders/bridgedap)
