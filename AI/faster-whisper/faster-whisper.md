@@ -13,8 +13,11 @@
 
 ## Installation
 
-The module can be installed from PyPI:
-
 ```bash
-pip install faster-whisper
+python -m venv myenv
+myenv\Scripts\activate
+
+pip install -r requirements.txt
+
+python transcribe_video.py
 ```
