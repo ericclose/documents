@@ -1,0 +1,4 @@
+faster-whisper
+ctranslate2
+tqdm
+ffmpeg-python
